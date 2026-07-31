@@ -95,7 +95,7 @@ Mark when submitted. Prefer official forms; do not automate logins.
 | PulseMCP | https://www.pulsemcp.com | ☐ | Agent/MCP discovery |
 | Official MCP Registry | registry.modelcontextprotocol.io | ☐ | Branded + solana-infra-mcp twin |
 | awesome-mcp-servers | [PR #11254](https://github.com/punkpeye/awesome-mcp-servers/pull/11254) | ✅ checks green · waiting merge | has-glama · check-submission pass |
-| awesome-solana-ai | [PR #193](https://github.com/solana-foundation/awesome-solana-ai/pull/193) | ⏳ open (infra-mcp) · toolkit add next | Pair with solana-infra-mcp |
+| awesome-solana-ai | [PR #193](https://github.com/solana-foundation/awesome-solana-ai/pull/193) | ⏳ open · infra-mcp + toolkit lines | Rebased 2026-07-31 |
 | SendAI Solana Skills | solanaskills.com | ☐ | Doctor + MCP install |
 | Claude plugin marketplace | `.claude-plugin/` + `skills/rpcedge` in this repo | ✅ in-repo | `/plugin marketplace add` or local install |
 
