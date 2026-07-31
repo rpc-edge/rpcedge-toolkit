@@ -1,0 +1,16 @@
+node_modules
+**/node_modules
+**/dist
+.git
+.github
+.turbo
+**/*.tsbuildinfo
+**/.DS_Store
+packages/*/src
+packages/*/tsconfig.json
+packages/*/vitest.config.ts
+skills
+docs
+scripts
+*.md
+!packages/mcp/README.md
