@@ -185,7 +185,7 @@ RPCEDGE_KEY=… pnpm e2e      # production endpoint path
 pnpm e2e:registry           # npm view + npx smoke
 ```
 
-Node ≥ 20 · pnpm 11 · Publish: [docs/PUBLISH.md](./docs/PUBLISH.md)
+Node ≥ 20 · pnpm 11 · Publish: [docs/PUBLISH.md](./docs/PUBLISH.md) · Listings: [docs/DISTRIBUTION.md](./docs/DISTRIBUTION.md)
 
 ---
 
