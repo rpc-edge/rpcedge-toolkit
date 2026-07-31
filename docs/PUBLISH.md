@@ -2,36 +2,57 @@
 
 Packages: `rpcedge-core`, `rpcedge-sdk`, `rpcedge`, `rpcedge-mcp` (all public, MIT).
 
-## One-time: npm token + GitHub secret
+## One-time: npm granular token + GitHub secret
 
-CI **cannot** enter a 2FA OTP. The token must be an **Automation** token (or a granular token with 2FA bypass for publish). A normal “Publish” token will fail with `ERR_PNPM_OTP_NON_INTERACTIVE` / “requires additional authentication”.
+As of **November 2025**, npm only supports **[granular access tokens](https://docs.npmjs.com/about-access-tokens#about-granular-access-tokens)**. Classic / legacy “Automation” tokens are gone.
 
-1. Sign in at [npmjs.com](https://www.npmjs.com/) (create an account if needed).
-2. Enable 2FA on the account if npm requires it, then create a token:
+CI **cannot** enter a 2FA OTP. A granular token **without** Bypass 2FA fails with:
 
-   **Option A — Classic Automation (simplest for CI)**  
-   [Access Tokens](https://www.npmjs.com/settings/~/tokens) → **Generate New Token** → **Classic** → type **Automation**  
-   (Automation tokens skip OTP on publish.)
+```text
+npm error code EOTP
+This operation requires a one-time password from your authenticator.
+```
 
-   **Option B — Granular**  
-   **Granular Access Token** → Read and write packages → enable **bypass 2FA** / automation-style publish → allow creating new packages (first release).
+### Create the token (exact settings)
 
-3. Copy the token once (shown only once).
-4. Store it on the repo (overwrites previous):
+1. Sign in at [npmjs.com](https://www.npmjs.com/).
+2. Open **[Access Tokens](https://www.npmjs.com/settings/~/tokens)** → **Generate New Token** → **Granular Access Token**.
+3. Configure:
+
+| Field | Value for this repo |
+|---|---|
+| **Token name** | `rpcedge-toolkit-ci` (or similar) |
+| **Expiration** | e.g. 90 days (min 1 day) |
+| **Packages and scopes** | **All packages** *or* specifically `rpcedge-core`, `rpcedge-sdk`, `rpcedge`, `rpcedge-mcp` |
+| **Permissions** | **Read and write** (not read-only) |
+| **Bypass 2FA** | **Must be true / enabled** |
+| **Organizations** | only if you later move packages under an npm org (not required for first user-scoped publish) |
+| **IP ranges** | leave empty unless you lock CI to known egress IPs |
+
+**Bypass 2FA** is the load-bearing setting. From the [npm docs](https://docs.npmjs.com/about-access-tokens#about-granular-access-tokens):
+
+> When Bypass 2FA is true, this setting takes precedence over account-level and package-level 2FA. Even if account 2FA is on and/or package-level 2FA is required, 2FA is still bypassed when using the token.
+
+Only enable Bypass 2FA on a token stored as a CI secret — never paste it into chat, commits, or public issues.
+
+**First publish note:** if the four package names do not exist yet, the token needs permission to **publish new packages** under your user (select all packages / unrestricted package selection for the first release, then tighten later).
+
+4. Generate, **copy once**.
+5. Store on the GitHub repo (overwrites previous):
 
 ```bash
 gh secret set NPM_TOKEN -R rpc-edge/rpcedge-toolkit
-# paste when prompted
+# paste when prompted — do not echo the token
 ```
 
-5. Confirm:
+6. Confirm secret exists (value is never shown):
 
 ```bash
 gh secret list -R rpc-edge/rpcedge-toolkit
 # should list NPM_TOKEN
 ```
 
-Optional local login (for manual publish from your machine):
+Optional local login (interactive 2FA is fine on your machine):
 
 ```bash
 npm login

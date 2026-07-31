@@ -80,8 +80,9 @@ jobs:
         run: |
           if [ -z "$NODE_AUTH_TOKEN" ]; then
             echo "::error::NPM_TOKEN secret is missing."
-            echo "Create an npm Automation token (2FA bypass) and:"
+            echo "Create a granular npm token (Read+Write + Bypass 2FA) and:"
             echo "  gh secret set NPM_TOKEN -R rpc-edge/rpcedge-toolkit"
+            echo "Docs: https://docs.npmjs.com/about-access-tokens#about-granular-access-tokens"
             exit 1
           fi
           # Ensure registry auth for npm CLI

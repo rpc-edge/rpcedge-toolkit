@@ -3,8 +3,8 @@
  * Publish packages in dependency order.
  * Requires NODE_AUTH_TOKEN (or npm login) for registry.npmjs.org.
  *
- * CI must use an npm **Automation** token (or granular token with 2FA bypass).
- * Classic/publish tokens that require OTP will fail non-interactively.
+ * CI must use an npm **granular** token with **Bypass 2FA = true** and write access.
+ * (Classic tokens were removed Nov 2025.) Tokens without Bypass 2FA fail with EOTP.
  *
  * Usage:
  *   node scripts/publish.mjs           # real publish
@@ -40,13 +40,14 @@ function run(cmd, args, opts = {}) {
       console.error(`
 Publish failed.
 
-If you saw OTP / non-interactive auth errors:
-  1. Create an npm **Automation** token (or granular token with 2FA bypass for publish)
+If you saw EOTP / OTP errors:
+  1. Create a granular token with Read+Write AND Bypass 2FA enabled
      https://www.npmjs.com/settings/~/tokens
+     Docs: https://docs.npmjs.com/about-access-tokens#about-granular-access-tokens
   2. gh secret set NPM_TOKEN -R rpc-edge/rpcedge-toolkit
-  3. Re-run the Release workflow
+  3. Re-run: gh workflow run release.yml -R rpc-edge/rpcedge-toolkit
 
-Provenance/OIDC is optional for first publish; default is access-public only.
+See docs/PUBLISH.md for the exact form fields.
 `);
     }
     process.exit(r.status ?? 1);
