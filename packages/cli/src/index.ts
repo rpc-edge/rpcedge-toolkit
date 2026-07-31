@@ -41,7 +41,7 @@ import {
   type ResolvedConfig,
 } from "rpcedge-core";
 
-const VERSION = "0.1.0";
+const VERSION = "0.1.1";
 
 interface GlobalFlags {
   json: boolean;

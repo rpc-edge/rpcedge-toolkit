@@ -1,6 +1,6 @@
 {
   "name": "rpcedge-mcp",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "MCP server for rpc edge: RPC health, priority fees, leaders, latency compare, and signed transaction submit via relay.",
   "type": "module",
   "license": "MIT",

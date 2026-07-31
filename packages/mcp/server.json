@@ -1,12 +1,12 @@
 {
   "name": "rpcedge-mcp",
   "description": "MCP server for rpc edge Solana infrastructure: health, priority fees, leaders, latency compare, relay submit.",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "packages": [
     {
       "registry_name": "npm",
       "name": "rpcedge-mcp",
-      "version": "0.1.0"
+      "version": "0.1.1"
     }
   ]
 }

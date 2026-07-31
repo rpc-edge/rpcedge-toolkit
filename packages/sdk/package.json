@@ -1,6 +1,6 @@
 {
   "name": "rpcedge-sdk",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "TypeScript SDK for rpc edge Solana RPC, health probes, priority fees, and transaction sender.",
   "type": "module",
   "license": "MIT",

@@ -28,7 +28,7 @@ import {
   type ResolvedConfig,
 } from "rpcedge-core";
 
-const VERSION = "0.1.0";
+const VERSION = "0.1.1";
 
 const server = new McpServer({
   name: "rpcedge-mcp",

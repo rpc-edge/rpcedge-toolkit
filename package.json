@@ -1,7 +1,7 @@
 {
   "name": "rpcedge-toolkit",
   "private": true,
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "rpc edge developer toolkit: TypeScript SDK, CLI, and MCP server for Solana trading infra.",
   "license": "MIT",
   "author": "0xNyk <0xnykcd@googlemail.com>",

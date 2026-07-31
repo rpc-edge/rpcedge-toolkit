@@ -1,6 +1,6 @@
 {
   "name": "rpcedge-core",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Shared client core for rpc edge: endpoints, auth, JSON-RPC, health, fees, and transaction relay helpers.",
   "type": "module",
   "license": "MIT",

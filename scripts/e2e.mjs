@@ -328,7 +328,7 @@ const transport = new StdioClientTransport({
   stderr: "pipe",
 });
 
-const client = new Client({ name: "rpcedge-e2e", version: "0.1.0" });
+const client = new Client({ name: "rpcedge-e2e", version: "0.1.1" });
 await client.connect(transport);
 
 const listed = await client.listTools();
