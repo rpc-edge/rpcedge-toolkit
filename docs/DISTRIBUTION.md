@@ -75,7 +75,11 @@ over promises: probes measure from your host; use solbench co-located for infra 
 **MCP tools (for registry forms)**
 
 `doctor`, `rpc_health`, `priority_fee_estimate`, `epoch_info`, `next_leaders`,
-`latency_compare`, `submit_transaction`, `endpoint_map`
+`latency_compare`, `yellowstone_sample`, `submit_transaction`, `endpoint_map`
+
+**Ready-to-paste pack (monorepo):**  
+`marketing/toolkit-directory-submissions-2026-07-31.md` in https://github.com/rpc-edge/rpcedge  
+(short/medium/long blurbs + per-directory field tables).
 
 ## Registry checklist
 
@@ -83,14 +87,16 @@ Mark when submitted. Prefer official forms; do not automate logins.
 
 | Target | URL | Status | Notes |
 |---|---|---|---|
-| npm (packages) | registry.npmjs.org | ✅ 0.1.1+ | Published via GitHub Release |
+| npm (packages) | registry.npmjs.org | ✅ 0.1.2 | Published via GitHub Release |
 | GitHub topics | repo settings | ☐ | solana, rpc, mcp, cli, sdk, trading |
 | mcp.so | https://mcp.so | ☐ | Submit MCP server + npm install |
 | Glama MCP | https://glama.ai/mcp | ☐ | Open-source MCP directory |
 | Smithery | https://smithery.ai | ☐ | If they accept stdio/npx servers |
 | PulseMCP | https://www.pulsemcp.com | ☐ | Agent/MCP discovery |
+| Official MCP Registry | registry.modelcontextprotocol.io | ☐ | Branded + solana-infra-mcp twin |
 | awesome-mcp-servers | GitHub awesome lists | ☐ | PR with npx one-liner |
 | awesome-solana-ai / agents | community lists | ☐ | Pair with solana-infra-mcp |
+| SendAI Solana Skills | solanaskills.com | ☐ | Doctor + MCP install |
 | Claude plugin marketplace | `.claude-plugin/` + `skills/rpcedge` in this repo | ✅ in-repo | `/plugin marketplace add` or local install |
 
 Provider-agnostic twin: [solana-infra-mcp](https://github.com/rpc-edge/solana-infra-mcp) -
