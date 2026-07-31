@@ -1,63 +1,67 @@
 # rpcedge-sdk
 
-TypeScript SDK for [rpc edge](https://rpcedge.com) - Solana RPC, health/fee probes, and the transaction sender.
+**TypeScript SDK for [rpc edge](https://rpcedge.com)** - typed RPC helpers, health/fee probes, and transaction sender without raw URL glue.
 
-Part of [rpcedge-toolkit](https://github.com/rpc-edge/rpcedge-toolkit).
+```bash
+pnpm add rpcedge-sdk
+export RPCEDGE_KEY=your-uuid-key   # https://app.rpcedge.com/signup
+```
+
+```ts
+import { RpcEdge } from "rpcedge-sdk";
+
+const edge = await RpcEdge.fromEnv();
+console.log(await edge.getSlot());
+console.log((await edge.health()).summary);
+console.log((await edge.priorityFees()).summary);
+
+// optional peer
+const conn = await edge.connection(); // @solana/web3.js
+// edge.grpcHost + edge.grpcMetadata for Yellowstone clients
+```
+
+[![npm](https://img.shields.io/npm/v/rpcedge-sdk.svg)](https://www.npmjs.com/package/rpcedge-sdk)
+[![license: MIT](https://img.shields.io/badge/license-MIT-blue.svg)](../../LICENSE)
 
 ## Install
 
 ```bash
 pnpm add rpcedge-sdk
-# optional, for Connection helper
+# optional
 pnpm add @solana/web3.js
 ```
 
-## Quickstart
+## API (essentials)
 
-```ts
-import { RpcEdge } from "rpcedge-sdk";
-
-// Reads RPCEDGE_KEY (or SOLANA_RPC_URL / ~/.config/rpcedge/config.json)
-const edge = await RpcEdge.fromEnv();
-
-console.log(await edge.getSlot());           // processed by default
-console.log((await edge.health()).summary);
-console.log((await edge.priorityFees()).summary);
-
-// @solana/web3.js when installed
-const conn = await edge.connection();
-console.log(await conn.getSlot("processed"));
-
-// Yellowstone helpers (wire your geyser client)
-// edge.grpcHost  -> grpc.rpcedge.com:443
-// edge.grpcMetadata -> { "x-api-key", authorization }
-```
-
-With an explicit key:
-
-```ts
-const edge = RpcEdge.withKey(process.env.RPCEDGE_KEY!);
-```
+| Method | Purpose |
+|---|---|
+| `RpcEdge.fromEnv()` | Resolve key + endpoints from env / config |
+| `RpcEdge.withKey(key)` | Explicit key → rpc edge defaults |
+| `getSlot()` / `call(method, params)` | JSON-RPC |
+| `health()` / `priorityFees()` / `epochInfo()` / `nextLeaders()` | Trading probes |
+| `doctor()` | Checklist for setup issues |
+| `connection()` | `@solana/web3.js` Connection (optional peer) |
+| `sendSignedTransaction(b64, { via })` | Relay (default) or RPC submit - **signed only** |
+| `grpcHost` / `grpcMetadata` | Wire any Yellowstone client |
 
 ## Env
 
 | Variable | Purpose |
 |---|---|
-| `RPCEDGE_KEY` | UUID API key from https://app.rpcedge.com |
-| `SOLANA_RPC_URL` | Full RPC URL override (any provider) |
+| `RPCEDGE_KEY` | UUID from [app.rpcedge.com](https://app.rpcedge.com/signup) |
+| `SOLANA_RPC_URL` | Full URL override (any provider) |
 | `SOLANA_WS_URL` | WebSocket override |
 | `RPCEDGE_RELAY_URL` | Relay base (default `https://relay.rpcedge.com`) |
 | `YELLOWSTONE_GRPC_URL` | gRPC host:port |
 
-Never put keys in prompts or commit them. Use env or `rpcedge config set-key`.
+Never put keys in prompts or commits.
 
 ## Related
 
-- CLI: [`rpcedge`](../cli) - `npx rpcedge doctor`
-- MCP: [`rpcedge-mcp`](../mcp) - agent tools
-- Provider-agnostic MCP: [solana-infra-mcp](https://github.com/rpc-edge/solana-infra-mcp)
-- Relay (Rust): [rpcedge-relay-client](https://github.com/rpc-edge/rpcedge-relay-client)
+- CLI: `npx rpcedge@latest doctor`
+- MCP: `claude mcp add rpcedge -- npx rpcedge-mcp@latest`
+- Source: [rpc-edge/rpcedge-toolkit](https://github.com/rpc-edge/rpcedge-toolkit)
 
 ## License
 
-MIT
+MIT · [rpc edge](https://rpcedge.com)

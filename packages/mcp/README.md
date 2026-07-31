@@ -1,14 +1,28 @@
 # rpcedge-mcp
 
-MCP server for [rpc edge](https://rpcedge.com) - Solana trading infrastructure tools for Claude, Cursor, Codex, and other MCP hosts.
-
-## Install
+**MCP server for [rpc edge](https://rpcedge.com)** - give Claude, Cursor, Codex, and other agents live Solana infra tools (health, fees, leaders, relay submit).
 
 ```bash
-# Claude Code
+export RPCEDGE_KEY=your-uuid-key   # https://app.rpcedge.com/signup
 claude mcp add rpcedge -- npx rpcedge-mcp@latest
+```
 
-# or any host config
+Then ask: *"Check my RPC health and estimate priority fees."*
+
+[![npm](https://img.shields.io/npm/v/rpcedge-mcp.svg)](https://www.npmjs.com/package/rpcedge-mcp)
+[![license: MIT](https://img.shields.io/badge/license-MIT-blue.svg)](../../LICENSE)
+
+## Install (any MCP host)
+
+**Claude Code**
+
+```bash
+claude mcp add rpcedge -- npx rpcedge-mcp@latest
+```
+
+**Claude Desktop / Cursor / VS Code** - add to MCP config:
+
+```json
 {
   "mcpServers": {
     "rpcedge": {
@@ -20,29 +34,45 @@ claude mcp add rpcedge -- npx rpcedge-mcp@latest
 }
 ```
 
+**Codex**
+
 ```bash
-export RPCEDGE_KEY=your-uuid-from-https://app.rpcedge.com
+codex mcp add rpcedge -- npx rpcedge-mcp@latest
 ```
 
 ## Tools
 
 | Tool | Purpose |
 |---|---|
+| `doctor` | Key + health checklist |
 | `rpc_health` | Slot, version, getSlot RTT |
 | `priority_fee_estimate` | p50/p75/p90/max micro-lamports/CU |
 | `epoch_info` | Epoch progress |
 | `next_leaders` | Next N slot leaders |
 | `latency_compare` | getSlot p50 vs baseline (not landing) |
-| `submit_transaction` | Signed base64 tx via relay (or rpc) + confirm |
-| `doctor` | Key + health checklist |
+| `submit_transaction` | Signed base64 tx via relay + confirm |
 | `endpoint_map` | Canonical endpoints + auth (no secrets) |
 
-Keys are never written to tool output (hosts only).
+**Signing is always upstream.** Submit tools never hold private keys. API keys are never echoed in tool text.
+
+## Env
+
+| Variable | Purpose |
+|---|---|
+| `RPCEDGE_KEY` | Preferred - points tools at rpc edge |
+| `SOLANA_RPC_URL` | Full URL (any Solana RPC) |
 
 ## Provider-agnostic alternative
 
-For a neutral Solana infra MCP that works with any RPC URL, see [solana-infra-mcp](https://github.com/rpc-edge/solana-infra-mcp). This package defaults to rpc edge and adds `doctor`, `endpoint_map`, and relay submit.
+For a neutral Solana infra MCP (any RPC URL, no brand defaults), see [solana-infra-mcp](https://github.com/rpc-edge/solana-infra-mcp).
+
+## Related
+
+- CLI: [`rpcedge`](https://www.npmjs.com/package/rpcedge)
+- SDK: [`rpcedge-sdk`](https://www.npmjs.com/package/rpcedge-sdk)
+- Agent guide: [rpcedge.com/skills.md](https://rpcedge.com/skills.md)
+- Signup: [app.rpcedge.com/signup](https://app.rpcedge.com/signup)
 
 ## License
 
-MIT
+MIT · [rpc edge](https://rpcedge.com)

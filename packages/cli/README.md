@@ -1,42 +1,62 @@
 # rpcedge
 
-CLI for [rpc edge](https://rpcedge.com) Solana infrastructure.
+**CLI for [rpc edge](https://rpcedge.com)** - prove your Solana RPC key works, probe fees/leaders, submit signed txs via the relay.
 
 ```bash
-# one-shot (no global install)
+export RPCEDGE_KEY=your-uuid-key   # https://app.rpcedge.com/signup
+npx rpcedge@latest doctor
+```
+
+[![npm](https://img.shields.io/npm/v/rpcedge.svg)](https://www.npmjs.com/package/rpcedge)
+[![license: MIT](https://img.shields.io/badge/license-MIT-blue.svg)](../../LICENSE)
+
+## Install
+
+```bash
+# one-shot
 npx rpcedge@latest doctor
 
-# or install
+# or global
 pnpm add -g rpcedge
-export RPCEDGE_KEY=your-uuid-from-app.rpcedge.com
 rpcedge doctor
-rpcedge health --json
-rpcedge slot
-rpcedge fee
-rpcedge call getEpochInfo '[]'
 ```
 
 ## Commands
 
 | Command | Purpose |
 |---|---|
-| `doctor` | Key + health checks with fix hints |
-| `health` | Slot, version, getSlot RTT |
-| `slot` / `fee` / `epoch` / `leaders` | Common trading probes |
-| `latency [urls...]` | getSlot p50 compare (not a landing metric) |
+| `doctor` | Key + health with fix-oriented next steps |
+| `health` | Slot, version, getSlot RTT (this host) |
+| `slot` / `fee` / `epoch` / `leaders` | Trading probes |
+| `latency [urls...]` | getSlot p50 compare - **not** a landing metric |
 | `call <method> [paramsJson]` | Raw JSON-RPC |
-| `send --raw <b64>` | Submit signed tx via relay (or `--via rpc`) |
-| `config set-key <key>` | Save key to `~/.config/rpcedge/config.json` |
+| `send --raw <b64>` | Submit signed tx via relay (`--via rpc` for standard) |
+| `config set-key <key>` | Save to `~/.config/rpcedge/config.json` (mode 600) |
 | `whoami` | Masked key + endpoints |
-| `mcp` | Launch `rpcedge-mcp` on stdio |
-| `open signup` | Print signup URL |
+| `mcp` | Spawn `rpcedge-mcp` on stdio |
+| `open signup` | Print dashboard signup URL |
 
-Global: `--json`, `--key`, `--url`.
+Global: `--json` · `--key` · `--url`
 
-## Part of
+## Example
 
-[rpcedge-toolkit](https://github.com/rpc-edge/rpcedge-toolkit) - also ships `rpcedge-sdk` and `rpcedge-mcp`.
+```bash
+npx rpcedge@latest health --json
+npx rpcedge@latest fee
+npx rpcedge@latest call getEpochInfo '[]'
+npx rpcedge@latest send --raw "$SIGNED_TX_B64"
+```
+
+## Config
+
+`RPCEDGE_KEY` → `https://rpc.rpcedge.com` by default. Also: `SOLANA_RPC_URL`, config file, CLI flags. See the [monorepo README](https://github.com/rpc-edge/rpcedge-toolkit#config-highest-wins).
+
+## Related
+
+- SDK: [`rpcedge-sdk`](https://www.npmjs.com/package/rpcedge-sdk)
+- MCP: [`rpcedge-mcp`](https://www.npmjs.com/package/rpcedge-mcp)
+- Signup: [app.rpcedge.com/signup](https://app.rpcedge.com/signup)
 
 ## License
 
-MIT
+MIT · [rpc edge](https://rpcedge.com)
