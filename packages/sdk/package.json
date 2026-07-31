@@ -36,14 +36,19 @@
     "LICENSE",
     "README.md"
   ],
+  "publishConfig": {
+    "access": "public",
+    "provenance": true
+  },
   "scripts": {
     "build": "tsc -p tsconfig.json",
     "typecheck": "tsc -p tsconfig.json --noEmit",
     "test": "vitest run --passWithNoTests",
-    "clean": "rm -rf dist *.tsbuildinfo"
+    "clean": "rm -rf dist *.tsbuildinfo",
+    "prepublishOnly": "pnpm run build"
   },
   "dependencies": {
-    "rpcedge-core": "workspace:*"
+    "rpcedge-core": "workspace:^"
   },
   "peerDependencies": {
     "@solana/web3.js": "^1.95.0"

@@ -19,7 +19,11 @@
     "test": "pnpm -r --filter './packages/*' run --if-present test",
     "clean": "pnpm -r --filter './packages/*' run --if-present clean && rm -rf packages/*/dist",
     "cli": "pnpm --filter rpcedge exec node dist/index.js",
-    "mcp": "pnpm --filter rpcedge-mcp exec node dist/index.js"
+    "mcp": "pnpm --filter rpcedge-mcp exec node dist/index.js",
+    "version:set": "node scripts/set-version.mjs",
+    "publish:dry": "node scripts/publish.mjs --dry-run",
+    "publish:npm": "node scripts/publish.mjs",
+    "release:tag": "node scripts/set-version.mjs"
   },
   "devDependencies": {
     "@types/node": "^22",

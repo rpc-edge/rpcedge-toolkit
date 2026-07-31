@@ -99,6 +99,20 @@ pnpm --filter rpcedge exec node dist/index.js doctor
 
 Node ≥ 20. pnpm 11.
 
+## Publish (npm)
+
+See **[docs/PUBLISH.md](./docs/PUBLISH.md)**. Short path:
+
+```bash
+# one-time
+gh secret set NPM_TOKEN -R rpc-edge/rpcedge-toolkit
+
+# release
+node scripts/set-version.mjs 0.1.0   # if bumping
+git tag v0.1.0 && git push origin main --tags
+# or: gh workflow run release.yml -R rpc-edge/rpcedge-toolkit -f version=0.1.0
+```
+
 ## Security
 
 - Never commit API keys or put them in model prompts

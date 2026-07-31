@@ -22,3 +22,8 @@ jobs:
       - run: pnpm typecheck
       - run: pnpm build
       - run: pnpm test
+      - name: Publish dry-run (no auth)
+        run: node scripts/publish.mjs --dry-run
+        env:
+          # dry-run still rewrites workspace deps; no token required for packing
+          npm_config_registry: https://registry.npmjs.org/

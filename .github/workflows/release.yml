@@ -1,0 +1,99 @@
+name: Release
+
+# Publish rpcedge-core, rpcedge-sdk, rpcedge, rpcedge-mcp to npm.
+# Trigger: push tag v*  OR  workflow_dispatch with version.
+#
+# One-time setup:
+#   1. npmjs.com → Access Tokens → Granular Access Token
+#      - Read/write packages, no 2FA challenge on CI (or use automation token)
+#      - Packages: rpcedge-core, rpcedge-sdk, rpcedge, rpcedge-mcp (or all)
+#   2. gh secret set NPM_TOKEN -R rpc-edge/rpcedge-toolkit
+#   3. git tag v0.1.0 && git push origin v0.1.0
+#      OR Actions → Release → Run workflow
+
+on:
+  push:
+    tags:
+      - "v*"
+  workflow_dispatch:
+    inputs:
+      version:
+        description: "Semver to publish (e.g. 0.1.0). Leave empty to use package.json versions as-is."
+        required: false
+        default: ""
+      dry_run:
+        description: "Dry-run only (no publish)"
+        type: boolean
+        default: false
+
+permissions:
+  contents: read
+  id-token: write # npm provenance
+
+concurrency:
+  group: npm-release
+  cancel-in-progress: false
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v4
+        with:
+          version: 11.8.0
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+          registry-url: "https://registry.npmjs.org"
+          cache: "pnpm"
+
+      - name: Install
+        run: pnpm install --frozen-lockfile
+
+      - name: Optional version bump
+        if: ${{ github.event_name == 'workflow_dispatch' && inputs.version != '' }}
+        run: node scripts/set-version.mjs "${{ inputs.version }}"
+
+      - name: Typecheck
+        run: pnpm typecheck
+
+      - name: Test
+        run: pnpm test
+
+      - name: Build
+        run: pnpm build
+
+      - name: Publish
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+          NPM_CONFIG_PROVENANCE: "true"
+          CI: "true"
+        run: |
+          if [ -z "$NODE_AUTH_TOKEN" ]; then
+            echo "::error::NPM_TOKEN secret is missing. Create a granular npm automation token and:"
+            echo "  gh secret set NPM_TOKEN -R rpc-edge/rpcedge-toolkit"
+            exit 1
+          fi
+          if [ "${{ inputs.dry_run }}" = "true" ]; then
+            node scripts/publish.mjs --dry-run
+          else
+            node scripts/publish.mjs
+          fi
+
+      - name: Smoke registry (post-publish)
+        if: ${{ success() && (github.event_name == 'push' || inputs.dry_run != true) }}
+        continue-on-error: true
+        run: |
+          sleep 15
+          npm view rpcedge version
+          npm view rpcedge-sdk version
+          npm view rpcedge-mcp version
+          npm view rpcedge-core version
+          npx --yes rpcedge@latest --version || true
+
