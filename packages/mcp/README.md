@@ -11,6 +11,7 @@ Then ask: *"Check my RPC health and estimate priority fees."*
 
 [![npm](https://img.shields.io/npm/v/rpcedge-mcp.svg)](https://www.npmjs.com/package/rpcedge-mcp)
 [![license: MIT](https://img.shields.io/badge/license-MIT-blue.svg)](../../LICENSE)
+[![Glama](https://glama.ai/mcp/servers/rpc-edge/rpcedge-toolkit/badges/score.svg)](https://glama.ai/mcp/servers/rpc-edge/rpcedge-toolkit)
 
 ## Install (any MCP host)
 
@@ -75,6 +76,18 @@ Skill `skills/rpcedge/SKILL.md` teaches tool routing. MCP defaults to `npx -y rp
 |---|---|
 | `RPCEDGE_KEY` | Preferred - points tools at rpc edge |
 | `SOLANA_RPC_URL` | Full URL (any Solana RPC) |
+
+## Docker (Glama / directory checks)
+
+Repo-root Dockerfile installs published `rpcedge-mcp` and speaks stdio MCP (tools/list works without a key):
+
+```bash
+# from monorepo root
+docker build -t rpcedge-mcp .
+docker run -i --rm -e RPCEDGE_KEY rpcedge-mcp
+```
+
+Glama listing: https://glama.ai/mcp/servers/rpc-edge/rpcedge-toolkit
 
 ## Provider-agnostic alternative
 
