@@ -60,14 +60,15 @@ jobs:
         if: ${{ github.event_name == 'workflow_dispatch' && inputs.version != '' }}
         run: node scripts/set-version.mjs "${{ inputs.version }}"
 
-      - name: Typecheck
-        run: pnpm typecheck
-
-      - name: Test
-        run: pnpm test
-
+      # Build first so workspace packages resolve types from dist/
       - name: Build
         run: pnpm build
+
+      - name: Typecheck
+        run: pnpm -r --filter './packages/*' run typecheck
+
+      - name: Test
+        run: pnpm -r --filter './packages/*' run --if-present test
 
       - name: Publish
         env:

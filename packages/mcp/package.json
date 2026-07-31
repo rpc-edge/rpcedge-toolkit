@@ -38,7 +38,7 @@
     "provenance": true
   },
   "scripts": {
-    "build": "tsc -p tsconfig.json && node -e \"require('fs').chmodSync('dist/index.js',0o755)\"",
+    "build": "rm -rf dist && tsc -p tsconfig.json && node -e \"require('fs').chmodSync('dist/index.js',0o755)\"",
     "typecheck": "tsc -p tsconfig.json --noEmit",
     "start": "node dist/index.js",
     "test": "vitest run --passWithNoTests",

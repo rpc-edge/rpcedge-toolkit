@@ -19,11 +19,11 @@ jobs:
           node-version: "22"
           cache: "pnpm"
       - run: pnpm install --frozen-lockfile
-      - run: pnpm typecheck
+      # Build first so workspace packages resolve types from dist/
       - run: pnpm build
-      - run: pnpm test
+      - run: pnpm -r --filter './packages/*' run typecheck
+      - run: pnpm -r --filter './packages/*' run --if-present test
       - name: Publish dry-run (no auth)
         run: node scripts/publish.mjs --dry-run
         env:
-          # dry-run still rewrites workspace deps; no token required for packing
           npm_config_registry: https://registry.npmjs.org/

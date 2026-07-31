@@ -14,9 +14,9 @@
     "node": ">=20"
   },
   "scripts": {
-    "build": "pnpm -r --filter './packages/*' run build",
-    "typecheck": "pnpm -r --filter './packages/*' run typecheck",
-    "test": "pnpm -r --filter './packages/*' run --if-present test",
+    "build": "pnpm --filter rpcedge-core run build && pnpm --filter rpcedge-sdk run build && pnpm --filter rpcedge run build && pnpm --filter rpcedge-mcp run build",
+    "typecheck": "pnpm run build && pnpm -r --filter './packages/*' run typecheck",
+    "test": "pnpm run build && pnpm -r --filter './packages/*' run --if-present test",
     "clean": "pnpm -r --filter './packages/*' run --if-present clean && rm -rf packages/*/dist",
     "cli": "pnpm --filter rpcedge exec node dist/index.js",
     "mcp": "pnpm --filter rpcedge-mcp exec node dist/index.js",

@@ -45,6 +45,7 @@ export {
   buildWsUrl,
   authHeaders,
   type ResolvedConfig,
+  type ResolveOptions,
   type HealthReport,
   type FeeReport,
   type EpochReport,
@@ -56,6 +57,10 @@ export {
 export interface RpcEdgeOptions extends ResolveOptions {
   /** Commitment for helpers that take it (documentation default: processed). */
   commitment?: "processed" | "confirmed" | "finalized";
+  /** Explicit full RPC URL override (also on ResolveOptions). */
+  rpcUrl?: string;
+  /** Explicit API key override. */
+  apiKey?: string;
 }
 
 export class RpcEdge {
