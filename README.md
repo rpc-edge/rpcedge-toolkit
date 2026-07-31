@@ -93,6 +93,13 @@ pnpm build
 pnpm typecheck
 pnpm test
 
+# full end-to-end: build, CLI, SDK, MCP live tools, publish dry-run
+pnpm e2e
+# after npm publish:
+pnpm e2e:registry
+# with a real key:
+RPCEDGE_KEY=… pnpm e2e
+
 # run CLI from workspace
 pnpm --filter rpcedge exec node dist/index.js doctor
 ```

@@ -23,7 +23,7 @@ jobs:
       - run: pnpm build
       - run: pnpm -r --filter './packages/*' run typecheck
       - run: pnpm -r --filter './packages/*' run --if-present test
-      - name: Publish dry-run (no auth)
-        run: node scripts/publish.mjs --dry-run
+      - name: End-to-end (CLI + SDK + MCP + publish dry-run)
+        run: pnpm e2e
         env:
           npm_config_registry: https://registry.npmjs.org/

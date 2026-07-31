@@ -23,7 +23,9 @@
     "version:set": "node scripts/set-version.mjs",
     "publish:dry": "node scripts/publish.mjs --dry-run",
     "publish:npm": "node scripts/publish.mjs",
-    "release:tag": "node scripts/set-version.mjs"
+    "release:tag": "node scripts/set-version.mjs",
+    "e2e": "node scripts/e2e.mjs",
+    "e2e:registry": "node scripts/e2e.mjs --registry"
   },
   "devDependencies": {
     "@types/node": "^22",
