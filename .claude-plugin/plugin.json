@@ -1,0 +1,12 @@
+{
+  "name": "rpcedge",
+  "version": "0.1.2",
+  "description": "rpc edge Solana infrastructure for agents: doctor, RPC health, priority fees, leaders, Yellowstone sample, and signed-tx relay. Keys stay in env.",
+  "author": {
+    "name": "0xNyk"
+  },
+  "homepage": "https://rpcedge.com/toolkit",
+  "repository": "https://github.com/rpc-edge/rpcedge-toolkit",
+  "license": "MIT",
+  "keywords": ["solana", "rpc", "mcp", "trading", "yellowstone"]
+}

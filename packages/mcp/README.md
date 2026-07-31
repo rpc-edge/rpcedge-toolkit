@@ -52,8 +52,22 @@ codex mcp add rpcedge -- npx rpcedge-mcp@latest
 | `latency_compare` | getSlot p50 vs baseline (not landing) |
 | `submit_transaction` | Signed base64 tx via relay + confirm |
 | `endpoint_map` | Canonical endpoints + auth (no secrets) |
+| `yellowstone_sample` | Time-boxed gRPC slot sample (needs key) |
 
 **Signing is always upstream.** Submit tools never hold private keys. API keys are never echoed in tool text.
+
+## Claude Code plugin
+
+From a clone of [rpcedge-toolkit](https://github.com/rpc-edge/rpcedge-toolkit):
+
+```bash
+# Claude Code: add local plugin marketplace or install the plugin dir
+/plugin marketplace add rpc-edge/rpcedge-toolkit
+# or point Claude at this repo's .claude-plugin + skills/rpcedge
+export RPCEDGE_KEY=your-uuid-key
+```
+
+Skill `skills/rpcedge/SKILL.md` teaches tool routing. MCP defaults to `npx -y rpcedge-mcp@latest`.
 
 ## Env
 

@@ -36,3 +36,8 @@ export {
   type SubmitResult,
   type DoctorReport,
 } from "./ops.js";
+export {
+  yellowstoneSample,
+  type YellowstoneSampleOptions,
+  type YellowstoneSampleReport,
+} from "./yellowstone.js";

@@ -1,8 +1,8 @@
 {
   "mcpServers": {
     "rpcedge": {
-      "command": "node",
-      "args": ["packages/mcp/dist/index.js"],
+      "command": "npx",
+      "args": ["-y", "rpcedge-mcp@latest"],
       "env": {}
     }
   }

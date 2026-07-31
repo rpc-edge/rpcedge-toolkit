@@ -1,6 +1,6 @@
 {
   "name": "rpcedge",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "description": "CLI for rpc edge: doctor, health, slot, fees, RPC calls, and MCP server launcher.",
   "type": "module",
   "license": "MIT",
@@ -42,6 +42,7 @@
     "prepublishOnly": "pnpm run build"
   },
   "dependencies": {
+    "@triton-one/yellowstone-grpc": "^5.0.0",
     "rpcedge-core": "workspace:^"
   },
   "devDependencies": {

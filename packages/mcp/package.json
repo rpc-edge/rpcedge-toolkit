@@ -1,6 +1,6 @@
 {
   "name": "rpcedge-mcp",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "description": "MCP server for rpc edge: RPC health, priority fees, leaders, latency compare, and signed transaction submit via relay.",
   "type": "module",
   "license": "MIT",
@@ -46,6 +46,7 @@
   },
   "dependencies": {
     "@modelcontextprotocol/sdk": "^1.12.0",
+    "@triton-one/yellowstone-grpc": "^5.0.0",
     "rpcedge-core": "workspace:^",
     "zod": "^3.23.0"
   },

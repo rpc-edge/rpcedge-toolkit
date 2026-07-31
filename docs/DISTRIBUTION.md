@@ -91,7 +91,7 @@ Mark when submitted. Prefer official forms; do not automate logins.
 | PulseMCP | https://www.pulsemcp.com | ☐ | Agent/MCP discovery |
 | awesome-mcp-servers | GitHub awesome lists | ☐ | PR with npx one-liner |
 | awesome-solana-ai / agents | community lists | ☐ | Pair with solana-infra-mcp |
-| Claude plugin marketplace | plugin.json pack | ☐ | Follow-up product work |
+| Claude plugin marketplace | `.claude-plugin/` + `skills/rpcedge` in this repo | ✅ in-repo | `/plugin marketplace add` or local install |
 
 Provider-agnostic twin: [solana-infra-mcp](https://github.com/rpc-edge/solana-infra-mcp) -
 list as the neutral option; this package is the branded rpc edge path.

@@ -1,6 +1,6 @@
 {
   "name": "rpcedge-core",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "description": "Shared client core for rpc edge: endpoints, auth, JSON-RPC, health, fees, and transaction relay helpers.",
   "type": "module",
   "license": "MIT",
@@ -48,8 +48,20 @@
   "engines": {
     "node": ">=20"
   },
+  "peerDependencies": {
+    "@triton-one/yellowstone-grpc": "^5.0.0"
+  },
+  "peerDependenciesMeta": {
+    "@triton-one/yellowstone-grpc": {
+      "optional": true
+    }
+  },
+  "optionalDependencies": {
+    "@triton-one/yellowstone-grpc": "^5.0.0"
+  },
   "devDependencies": {
     "@types/node": "^22",
+    "@triton-one/yellowstone-grpc": "^5.0.0",
     "typescript": "^5.7.0",
     "vitest": "^3.0.0"
   }

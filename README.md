@@ -27,8 +27,9 @@ This toolkit collapses that path:
 |---|---|---|
 | Prove the key works | hand-written curl | `npx rpcedge doctor` |
 | Wire TypeScript | raw URL strings | `RpcEdge.fromEnv()` |
-| Agent / Claude / Cursor | docs copy-paste | `npx rpcedge-mcp` tools |
+| Agent / Claude / Cursor | docs copy-paste | `npx rpcedge-mcp` tools (+ plugin skill) |
 | Land a signed tx | guess the right path | `rpcedge send --raw` → relay |
+| gRPC freshness probe | hand-roll a stream | `rpcedge grpc-sample` / `yellowstone_sample` |
 
 **rpc edge** is co-located Solana infra (RPC, Yellowstone gRPC, sender) for trading bots - self-serve from **$249/mo USDC**, Frankfurt / FR13. This repo is the open DX layer on top. Measure claims yourself with [solbench](https://github.com/rpc-edge/solbench) - we do not invent latency heroes here.
 
@@ -45,6 +46,7 @@ export RPCEDGE_KEY=your-uuid-key
 npx rpcedge@latest doctor
 npx rpcedge@latest health --json
 npx rpcedge@latest fee          # p50/p75/p90 micro-lamports/CU
+npx rpcedge@latest grpc-sample  # time-boxed Yellowstone slot sample
 ```
 
 Save the key for later sessions:
@@ -84,12 +86,20 @@ claude mcp add rpcedge -- npx rpcedge-mcp@latest
 # also works with Cursor / Codex / any stdio MCP host
 ```
 
+**Claude Code plugin** (this repo ships `.claude-plugin/` + `skills/rpcedge`):
+
+```bash
+# from Claude Code: add the marketplace / install the plugin, then set RPCEDGE_KEY
+# skill teaches when to call doctor vs fees vs yellowstone_sample vs relay submit
+```
+
 Ask: *"Check my RPC health and estimate priority fees."*
 
 | Tool | What the agent can do |
 |---|---|
 | `doctor` | Key + health checklist with next actions |
 | `rpc_health` | Slot, solana-core, getSlot RTT from this host |
+| `yellowstone_sample` | Time-boxed gRPC slot sample (needs key) |
 | `priority_fee_estimate` | p50/p75/p90/max micro-lamports per CU |
 | `epoch_info` / `next_leaders` | Epoch progress + leader timing |
 | `latency_compare` | getSlot p50 vs baseline (not a landing metric) |

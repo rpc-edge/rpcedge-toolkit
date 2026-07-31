@@ -24,11 +24,12 @@ import {
   submitViaRelay,
   submitViaRpc,
   doctor,
+  yellowstoneSample,
   hostOf,
   type ResolvedConfig,
 } from "rpcedge-core";
 
-const VERSION = "0.1.1";
+const VERSION = "0.1.2";
 
 const server = new McpServer({
   name: "rpcedge-mcp",
@@ -217,6 +218,26 @@ server.registerTool(
       "Never put API keys in prompts. Use env RPCEDGE_KEY or client config only.",
     ].join("\n");
     return text(body);
+  },
+);
+
+server.registerTool(
+  "yellowstone_sample",
+  {
+    title: "Yellowstone gRPC sample",
+    description:
+      "Time-boxed Yellowstone slot subscription (default ~3s). Reports message count and time-to-first-message from THIS host. Not a live long-lived stream - for production use a Yellowstone client with narrow filters. Requires RPCEDGE_KEY for rpc edge gRPC.",
+    inputSchema: {
+      durationMs: z.number().int().min(500).max(15000).default(3000),
+      maxMessages: z.number().int().min(1).max(50).default(8),
+    },
+  },
+  async ({ durationMs, maxMessages }) => {
+    try {
+      return text((await yellowstoneSample(await resolveConfig(), { durationMs, maxMessages })).summary);
+    } catch (e) {
+      return fail(e);
+    }
   },
 );
 

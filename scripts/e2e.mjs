@@ -328,7 +328,7 @@ const transport = new StdioClientTransport({
   stderr: "pipe",
 });
 
-const client = new Client({ name: "rpcedge-e2e", version: "0.1.1" });
+const client = new Client({ name: "rpcedge-e2e", version: "0.1.2" });
 await client.connect(transport);
 
 const listed = await client.listTools();
@@ -342,6 +342,7 @@ const required = [
   "submit_transaction",
   "doctor",
   "endpoint_map",
+  "yellowstone_sample",
 ];
 const missing = required.filter((n) => !names.includes(n));
 if (missing.length) {
@@ -403,7 +404,7 @@ console.log(JSON.stringify({
     });
     if (r.code === 0) {
       const j = assertJson(r.stdout);
-      if (j?.toolCount >= 8) pass("MCP tools/list + live tool calls", j.healthSnippet);
+      if (j?.toolCount >= 9) pass("MCP tools/list + live tool calls", j.healthSnippet);
       else fail("MCP tool calls incomplete", r.stdout);
     } else fail("MCP client e2e", (r.stderr || r.stdout).slice(0, 800));
   } finally {

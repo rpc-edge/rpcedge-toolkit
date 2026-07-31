@@ -37,11 +37,12 @@ import {
   submitViaRelay,
   submitViaRpc,
   latencyCompare,
+  yellowstoneSample,
   RpcEdgeError,
   type ResolvedConfig,
 } from "rpcedge-core";
 
-const VERSION = "0.1.1";
+const VERSION = "0.1.2";
 
 interface GlobalFlags {
   json: boolean;
@@ -81,6 +82,7 @@ Commands:
   epoch               Epoch progress
   leaders [--count N] Next N slot leaders (default 8)
   latency [url...]    Compare getSlot p50 (default: configured + public mainnet)
+  grpc-sample         Time-boxed Yellowstone slot sample (needs key + gRPC access)
   call <method> [jsonParams]
                       Raw JSON-RPC method
   send --raw <b64> [--via relay|rpc] [--wait-ms N]
@@ -206,6 +208,20 @@ async function main(): Promise<void> {
         const urls = extra.length > 0 ? extra : [cfg.rpcUrl, DEFAULTS.publicMainnet];
         const report = await latencyCompare(urls, 8, cfg.apiKey);
         out(flags, report.summary, report);
+        break;
+      }
+      case "grpc-sample":
+      case "yellowstone-sample": {
+        let durationMs = 3000;
+        let maxMessages = 8;
+        for (let i = 1; i < rest.length; i++) {
+          if (rest[i] === "--ms") durationMs = Number(rest[++i]);
+          else if (rest[i] === "--max") maxMessages = Number(rest[++i]);
+        }
+        const cfg = await cfgFrom(flags);
+        const report = await yellowstoneSample(cfg, { durationMs, maxMessages });
+        out(flags, report.summary, report);
+        process.exit(report.ok ? 0 : 2);
         break;
       }
       case "call": {
