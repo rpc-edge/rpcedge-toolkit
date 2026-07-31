@@ -181,6 +181,7 @@ Pricing: [rpcedge.com/pricing](https://rpcedge.com/pricing) · Docs: [docs.rpced
 | Repo | Purpose |
 |---|---|
 | [solana-infra-mcp](https://github.com/rpc-edge/solana-infra-mcp) | Provider-agnostic Solana infra MCP |
+| [rpcedge-copy-ref](https://github.com/rpc-edge/rpcedge-copy-ref) | Paper copy-watch reference (doctor → logsSubscribe → paper log) |
 | [solbench](https://github.com/rpc-edge/solbench) | Honest RPC/gRPC latency harness |
 | [rpcedge-relay-client](https://github.com/rpc-edge/rpcedge-relay-client) | Rust transaction relay client |
 

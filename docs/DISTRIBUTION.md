@@ -88,14 +88,14 @@ Mark when submitted. Prefer official forms; do not automate logins.
 | Target | URL | Status | Notes |
 |---|---|---|---|
 | npm (packages) | registry.npmjs.org | ✅ 0.1.2 | Published via GitHub Release |
-| GitHub topics | repo settings | ☐ | solana, rpc, mcp, cli, sdk, trading |
-| mcp.so | https://mcp.so | ☐ | Submit MCP server + npm install |
-| Glama MCP | https://glama.ai/mcp | ☐ | Open-source MCP directory |
+| GitHub topics | repo settings | ✅ 2026-07-31 | solana, rpc, mcp, cli, sdk, trading, … |
+| mcp.so | https://mcp.so | ☐ | Free path needs account + form; pack in monorepo marketing/ |
+| Glama MCP | https://glama.ai/mcp/servers/rpc-edge/rpcedge-toolkit | ✅ claimed | Dockerfile + glama.json (`0xNyk`) on main |
 | Smithery | https://smithery.ai | ☐ | If they accept stdio/npx servers |
 | PulseMCP | https://www.pulsemcp.com | ☐ | Agent/MCP discovery |
 | Official MCP Registry | registry.modelcontextprotocol.io | ☐ | Branded + solana-infra-mcp twin |
-| awesome-mcp-servers | GitHub awesome lists | ☐ | PR with npx one-liner |
-| awesome-solana-ai / agents | community lists | ☐ | Pair with solana-infra-mcp |
+| awesome-mcp-servers | [PR #11254](https://github.com/punkpeye/awesome-mcp-servers/pull/11254) | ✅ checks green · waiting merge | has-glama · check-submission pass |
+| awesome-solana-ai | [PR #193](https://github.com/solana-foundation/awesome-solana-ai/pull/193) | ⏳ open (infra-mcp) · toolkit add next | Pair with solana-infra-mcp |
 | SendAI Solana Skills | solanaskills.com | ☐ | Doctor + MCP install |
 | Claude plugin marketplace | `.claude-plugin/` + `skills/rpcedge` in this repo | ✅ in-repo | `/plugin marketplace add` or local install |
 
