@@ -22,18 +22,15 @@
 # 1. Key from https://app.rpcedge.com/signup
 export RPCEDGE_KEY=your-uuid-key
 
-# 2. Clone + build (npm publish of packages is the next step)
-git clone https://github.com/rpc-edge/rpcedge-toolkit.git
-cd rpcedge-toolkit && pnpm install && pnpm build
+# 2. Doctor
+npx rpcedge@latest doctor
 
-# 3. Doctor
-node packages/cli/dist/index.js doctor
-# after npm publish: npx rpcedge@latest doctor
+# 3. SDK
+pnpm add rpcedge-sdk
 ```
 
 ```ts
-// workspace / after npm publish: import { RpcEdge } from "rpcedge-sdk";
-import { RpcEdge } from "./packages/sdk/dist/index.js"; // from clone path
+import { RpcEdge } from "rpcedge-sdk";
 
 const edge = await RpcEdge.fromEnv();
 console.log(await edge.getSlot());
@@ -41,9 +38,8 @@ console.log((await edge.health()).summary);
 ```
 
 ```bash
-# 4. Agent / Claude Code (from a built clone)
-claude mcp add rpcedge -- node /abs/path/to/rpcedge-toolkit/packages/mcp/dist/index.js
-# after npm publish: claude mcp add rpcedge -- npx rpcedge-mcp@latest
+# 4. Agent / Claude Code
+claude mcp add rpcedge -- npx rpcedge-mcp@latest
 # ensure RPCEDGE_KEY is in the environment
 ```
 
