@@ -1,0 +1,64 @@
+{
+  "name": "rpcedge-sdk",
+  "version": "0.1.0",
+  "description": "TypeScript SDK for rpc edge Solana RPC, health probes, priority fees, and transaction sender.",
+  "type": "module",
+  "license": "MIT",
+  "author": "0xNyk <0xnykcd@googlemail.com>",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/rpc-edge/rpcedge-toolkit.git",
+    "directory": "packages/sdk"
+  },
+  "homepage": "https://rpcedge.com",
+  "bugs": {
+    "url": "https://github.com/rpc-edge/rpcedge-toolkit/issues"
+  },
+  "keywords": [
+    "solana",
+    "rpc",
+    "sdk",
+    "rpcedge",
+    "rpc-edge",
+    "web3",
+    "trading"
+  ],
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js"
+    }
+  },
+  "files": [
+    "dist",
+    "LICENSE",
+    "README.md"
+  ],
+  "scripts": {
+    "build": "tsc -p tsconfig.json",
+    "typecheck": "tsc -p tsconfig.json --noEmit",
+    "test": "vitest run --passWithNoTests",
+    "clean": "rm -rf dist *.tsbuildinfo"
+  },
+  "dependencies": {
+    "rpcedge-core": "workspace:*"
+  },
+  "peerDependencies": {
+    "@solana/web3.js": "^1.95.0"
+  },
+  "peerDependenciesMeta": {
+    "@solana/web3.js": {
+      "optional": true
+    }
+  },
+  "devDependencies": {
+    "@types/node": "^22",
+    "typescript": "^5.7.0",
+    "vitest": "^3.0.0"
+  },
+  "engines": {
+    "node": ">=20"
+  }
+}

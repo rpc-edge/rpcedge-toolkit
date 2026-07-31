@@ -1,0 +1,56 @@
+{
+  "name": "rpcedge-mcp",
+  "version": "0.1.0",
+  "description": "MCP server for rpc edge: RPC health, priority fees, leaders, latency compare, and signed transaction submit via relay.",
+  "type": "module",
+  "license": "MIT",
+  "author": "0xNyk <0xnykcd@googlemail.com>",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/rpc-edge/rpcedge-toolkit.git",
+    "directory": "packages/mcp"
+  },
+  "homepage": "https://rpcedge.com",
+  "bugs": {
+    "url": "https://github.com/rpc-edge/rpcedge-toolkit/issues"
+  },
+  "keywords": [
+    "solana",
+    "mcp",
+    "model-context-protocol",
+    "rpcedge",
+    "rpc-edge",
+    "claude",
+    "agents"
+  ],
+  "bin": {
+    "rpcedge-mcp": "./dist/index.js"
+  },
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "files": [
+    "dist",
+    "LICENSE",
+    "README.md"
+  ],
+  "scripts": {
+    "build": "tsc -p tsconfig.json && node -e \"require('fs').chmodSync('dist/index.js',0o755)\"",
+    "typecheck": "tsc -p tsconfig.json --noEmit",
+    "start": "node dist/index.js",
+    "test": "vitest run --passWithNoTests",
+    "clean": "rm -rf dist *.tsbuildinfo"
+  },
+  "dependencies": {
+    "@modelcontextprotocol/sdk": "^1.12.0",
+    "rpcedge-core": "workspace:*",
+    "zod": "^3.23.0"
+  },
+  "devDependencies": {
+    "@types/node": "^22",
+    "typescript": "^5.7.0",
+    "vitest": "^3.0.0"
+  },
+  "engines": {
+    "node": ">=20"
+  }
+}

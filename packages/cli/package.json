@@ -1,0 +1,51 @@
+{
+  "name": "rpcedge",
+  "version": "0.1.0",
+  "description": "CLI for rpc edge: doctor, health, slot, fees, RPC calls, and MCP server launcher.",
+  "type": "module",
+  "license": "MIT",
+  "author": "0xNyk <0xnykcd@googlemail.com>",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/rpc-edge/rpcedge-toolkit.git",
+    "directory": "packages/cli"
+  },
+  "homepage": "https://rpcedge.com",
+  "bugs": {
+    "url": "https://github.com/rpc-edge/rpcedge-toolkit/issues"
+  },
+  "keywords": [
+    "solana",
+    "rpc",
+    "cli",
+    "rpcedge",
+    "rpc-edge"
+  ],
+  "bin": {
+    "rpcedge": "./dist/index.js"
+  },
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "files": [
+    "dist",
+    "LICENSE",
+    "README.md"
+  ],
+  "scripts": {
+    "build": "tsc -p tsconfig.json && node -e \"require('fs').chmodSync('dist/index.js',0o755)\"",
+    "typecheck": "tsc -p tsconfig.json --noEmit",
+    "test": "vitest run --passWithNoTests",
+    "clean": "rm -rf dist *.tsbuildinfo"
+  },
+  "dependencies": {
+    "rpcedge-core": "workspace:*"
+  },
+  "devDependencies": {
+    "@types/node": "^22",
+    "typescript": "^5.7.0",
+    "vitest": "^3.0.0"
+  },
+  "engines": {
+    "node": ">=20"
+  }
+}
