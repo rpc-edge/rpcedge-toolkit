@@ -73,19 +73,26 @@ jobs:
       - name: Publish
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
-          NPM_CONFIG_PROVENANCE: "true"
+          NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
+          # Provenance off by default until npm Trusted Publisher is configured.
+          # Set PROVENANCE=1 and configure OIDC on npmjs.com to enable later.
           CI: "true"
         run: |
           if [ -z "$NODE_AUTH_TOKEN" ]; then
-            echo "::error::NPM_TOKEN secret is missing. Create a granular npm automation token and:"
+            echo "::error::NPM_TOKEN secret is missing."
+            echo "Create an npm Automation token (2FA bypass) and:"
             echo "  gh secret set NPM_TOKEN -R rpc-edge/rpcedge-toolkit"
             exit 1
           fi
+          # Ensure registry auth for npm CLI
+          echo "//registry.npmjs.org/:_authToken=${NODE_AUTH_TOKEN}" >> "$HOME/.npmrc"
+          echo "registry=https://registry.npmjs.org/" >> "$HOME/.npmrc"
           if [ "${{ inputs.dry_run }}" = "true" ]; then
             node scripts/publish.mjs --dry-run
           else
             node scripts/publish.mjs
           fi
+
 
       - name: Smoke registry (post-publish)
         if: ${{ success() && (github.event_name == 'push' || inputs.dry_run != true) }}

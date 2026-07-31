@@ -4,18 +4,24 @@ Packages: `rpcedge-core`, `rpcedge-sdk`, `rpcedge`, `rpcedge-mcp` (all public, M
 
 ## One-time: npm token + GitHub secret
 
+CI **cannot** enter a 2FA OTP. The token must be an **Automation** token (or a granular token with 2FA bypass for publish). A normal “Publish” token will fail with `ERR_PNPM_OTP_NON_INTERACTIVE` / “requires additional authentication”.
+
 1. Sign in at [npmjs.com](https://www.npmjs.com/) (create an account if needed).
-2. **Access Tokens** → **Generate New Token** → **Granular Access Token**:
-   - **Permissions:** Read and write
-   - **Packages:** select all four names, or allow publishing new packages under your user
-   - **Expiration:** 90 days or custom (rotate)
-   - Prefer **Automation** style tokens when available (skip 2FA on CI)
-3. Copy the token once.
-4. Store it on the repo:
+2. Enable 2FA on the account if npm requires it, then create a token:
+
+   **Option A — Classic Automation (simplest for CI)**  
+   [Access Tokens](https://www.npmjs.com/settings/~/tokens) → **Generate New Token** → **Classic** → type **Automation**  
+   (Automation tokens skip OTP on publish.)
+
+   **Option B — Granular**  
+   **Granular Access Token** → Read and write packages → enable **bypass 2FA** / automation-style publish → allow creating new packages (first release).
+
+3. Copy the token once (shown only once).
+4. Store it on the repo (overwrites previous):
 
 ```bash
 gh secret set NPM_TOKEN -R rpc-edge/rpcedge-toolkit
-# paste token when prompted
+# paste when prompted
 ```
 
 5. Confirm:
