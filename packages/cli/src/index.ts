@@ -21,6 +21,7 @@
 import { spawn } from "node:child_process";
 import { createRequire } from "node:module";
 import { pathToFileURL } from "node:url";
+import { buildMcpEnv } from "./mcp-env.js";
 import {
   DEFAULTS,
   resolveConfig,
@@ -355,7 +356,7 @@ async function runMcp(): Promise<void> {
   }
   const child = spawn(process.execPath, [entry], {
     stdio: "inherit",
-    env: process.env,
+    env: buildMcpEnv(),
   });
   child.on("exit", (code) => process.exit(code ?? 1));
   // keep process alive for stdio MCP
